@@ -40,10 +40,10 @@ public class TeacherApi
     {
         return _context.Questions.Where(x => x.ExamId == examId).ToList();
     }
-    public Question EditQuestion(QuestionDTO question)
+    public Question EditQuestion(string examId, string questionId, QuestionDTO question)
     {
         var existingQuestion = _context.Questions
-            .FirstOrDefault(q => q.QuestionId == question.QuestionId && q.ExamId == question.ExamId);
+            .FirstOrDefault(q => q.QuestionId == questionId && q.ExamId == examId);
 
         if (existingQuestion == null)
         {
@@ -65,7 +65,13 @@ public class TeacherApi
     public void DeleteQuestion(string questionId, string examId)
     {
          var question  = _context.Questions.FirstOrDefault(q => q.QuestionId == questionId && q.ExamId == examId);
-        _context.Questions.Remove(question);
+
+         if (question != null)
+         {
+             _context.Questions.Remove(question);
+             _context.SaveChanges();
+         }
+     
     }
     
     //Exams 
@@ -82,8 +88,9 @@ public class TeacherApi
         _context.Exams.Add(_exam);
         _context.SaveChanges();
     }
+    public List<Exam> GetAllExams() => _context.Exams.ToList();
     public Exam GetExamById(string examId) => _context.Exams.FirstOrDefault(e => e.ExamID == examId);
-    public Exam EditExam(ExamDTO exam)
+    public Exam EditExam(string examId, ExamDTO exam)
     {
         var existingExam = _context.Exams.FirstOrDefault(e => e.ExamID == exam.ExamID);
 
