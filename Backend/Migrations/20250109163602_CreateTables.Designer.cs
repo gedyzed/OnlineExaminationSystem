@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20250109141652_CreateTables")]
+    [Migration("20250109163602_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />
@@ -49,40 +49,6 @@ namespace Backend.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("Backend.Data.Models.Choice", b =>
-                {
-                    b.Property<string>("ExamId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("QuestionId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ChoiceId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Choice_A")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice_B")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice_C")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice_D")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ExamId", "QuestionId", "ChoiceId");
-
-                    b.HasIndex("QuestionId", "ExamId");
-
-                    b.ToTable("Choices");
-                });
-
             modelBuilder.Entity("Backend.Data.Models.Exam", b =>
                 {
                     b.Property<string>("ExamID")
@@ -114,6 +80,22 @@ namespace Backend.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice_A")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice_B")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice_C")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice_D")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -270,25 +252,6 @@ namespace Backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend.Data.Models.Choice", b =>
-                {
-                    b.HasOne("Backend.Data.Models.Exam", "Exam")
-                        .WithMany("Choices")
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Backend.Data.Models.Question", "Question")
-                        .WithMany("Choices")
-                        .HasForeignKey("QuestionId", "ExamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Exam");
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("Backend.Data.Models.Question", b =>
                 {
                     b.HasOne("Backend.Data.Models.Exam", "Exam")
@@ -359,16 +322,9 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Data.Models.Exam", b =>
                 {
-                    b.Navigation("Choices");
-
                     b.Navigation("Questions");
 
                     b.Navigation("Reports");
-                });
-
-            modelBuilder.Entity("Backend.Data.Models.Question", b =>
-                {
-                    b.Navigation("Choices");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Student", b =>

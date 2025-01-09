@@ -50,6 +50,10 @@ namespace Backend.Migrations
                     QuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ExamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     QuestionText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Choice_A = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Choice_B = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Choice_C = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Choice_D = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -123,34 +127,6 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Choices",
-                columns: table => new
-                {
-                    ChoiceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ExamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    QuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Choice_A = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Choice_B = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Choice_C = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Choice_D = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Choices", x => new { x.ExamId, x.QuestionId, x.ChoiceId });
-                    table.ForeignKey(
-                        name: "FK_Choices_Exams_ExamId",
-                        column: x => x.ExamId,
-                        principalTable: "Exams",
-                        principalColumn: "ExamID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Choices_Questions_QuestionId_ExamId",
-                        columns: x => new { x.QuestionId, x.ExamId },
-                        principalTable: "Questions",
-                        principalColumns: new[] { "QuestionId", "ExamId" });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Schedules",
                 columns: table => new
                 {
@@ -205,11 +181,6 @@ namespace Backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Choices_QuestionId_ExamId",
-                table: "Choices",
-                columns: new[] { "QuestionId", "ExamId" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Questions_ExamId",
                 table: "Questions",
                 column: "ExamId");
@@ -236,7 +207,7 @@ namespace Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Choices");
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "Reports");
@@ -248,16 +219,13 @@ namespace Backend.Migrations
                 name: "Teachers");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Exams");
 
             migrationBuilder.DropTable(
                 name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Admins");
-
-            migrationBuilder.DropTable(
-                name: "Exams");
 
             migrationBuilder.DropTable(
                 name: "Users");
