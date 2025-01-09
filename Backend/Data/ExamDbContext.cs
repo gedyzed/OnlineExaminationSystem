@@ -46,17 +46,17 @@ public class ExamDbContext : DbContext
     modelBuilder.Entity<User>()
         .HasOne(u => u.Student)
         .WithOne(s => s.User)
-        .HasForeignKey<Student>(s => s.UserID);
+        .HasForeignKey<Student>(s => s.StudentId);
 
     modelBuilder.Entity<User>()
         .HasOne(u => u.Admin)
         .WithOne(a => a.User)
-        .HasForeignKey<Admin>(a => a.UserID);
+        .HasForeignKey<Admin>(a => a.AdminId);
 
     modelBuilder.Entity<User>()
         .HasOne(u => u.Teacher)
         .WithOne(t => t.User)
-        .HasForeignKey<Teacher>(t => t.UserID);
+        .HasForeignKey<Teacher>(t => t.TeacherId);
 
     modelBuilder.Entity<Student>()
         .HasMany(s => s.Reports)
@@ -72,24 +72,17 @@ public class ExamDbContext : DbContext
         .HasMany(e => e.Reports)
         .WithOne(r => r.Exam)
         .HasForeignKey(r => r.ExamId); 
-/*
-    modelBuilder.Entity<Choice>()
-        .HasOne(c => c.Question)
-        .WithMany(q => q.Choices)
-        .HasForeignKey(c => new{ c.QuestionId, c.ExamId})
-        .OnDelete(DeleteBehavior.NoAction);
-*/
 
     modelBuilder.Entity<Exam>()
         .HasMany(e => e.Questions)
         .WithOne(q => q.Exam)
         .HasForeignKey(q => q.ExamId);
-/*
+
     modelBuilder.Entity<Exam>()
-        .HasMany(e => e.Choices)
-        .WithOne(c => c.Exam)
-        .HasForeignKey(c => c.ExamId); 
-        */
+    .HasOne(s=>s.Schedule)
+    .WithOne(e=>e.Exam)
+    .HasForeignKey<Schedule>(s => s.ExamId);
+    
 }
 
 

@@ -4,5 +4,4 @@ public class TeacherDTO
 {
     public string TeacherId { get; set; }
     public string ExamId { get; set; }
-    public string UserID { get; set; }
 }
