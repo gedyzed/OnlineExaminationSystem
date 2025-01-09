@@ -11,4 +11,6 @@ public class Exam
     //Navigation Property
     public List<Report> Reports { get; set; }
     public List<Question> Questions { get; set; }
+
+    public Schedule Schedule { get; set; }
 }

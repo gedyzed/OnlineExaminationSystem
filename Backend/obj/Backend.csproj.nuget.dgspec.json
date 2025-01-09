@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ETHIOPIA\\Desktop\\gedy\\Projects\\Online Examination System\\Backend\\Backend.csproj": {}
+    "C:\\OnlineExaminationSystem\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ETHIOPIA\\Desktop\\gedy\\Projects\\Online Examination System\\Backend\\Backend.csproj": {
+    "C:\\OnlineExaminationSystem\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ETHIOPIA\\Desktop\\gedy\\Projects\\Online Examination System\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\OnlineExaminationSystem\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\ETHIOPIA\\Desktop\\gedy\\Projects\\Online Examination System\\Backend\\Backend.csproj",
-        "packagesPath": "C:\\Users\\ETHIOPIA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ETHIOPIA\\Desktop\\gedy\\Projects\\Online Examination System\\Backend\\obj\\",
+        "projectPath": "C:\\OnlineExaminationSystem\\Backend\\Backend.csproj",
+        "packagesPath": "C:\\Users\\ALAZAR\\.nuget\\packages\\",
+        "outputPath": "C:\\OnlineExaminationSystem\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ETHIOPIA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ALAZAR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,9 +38,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -88,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
