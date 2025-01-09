@@ -16,7 +16,6 @@ public class ExamDbContext : DbContext
     public DbSet<User> Users{ get; set; }
     public DbSet<Report> Reports{ get; set; }
     public DbSet<Schedule> Schedules{ get; set; }
-    public DbSet<Choice> Choices{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
     modelBuilder.Entity<Student>()
@@ -27,10 +26,7 @@ public class ExamDbContext : DbContext
 
     modelBuilder.Entity<Teacher>()
         .HasKey(t => t.TeacherId);
-
-    modelBuilder.Entity<Choice>()
-        .HasKey(c => new { c.ExamId, c.QuestionId, c.ChoiceId });
-
+    
     modelBuilder.Entity<User>()
         .HasKey(u => u.UserID);
 
@@ -76,22 +72,24 @@ public class ExamDbContext : DbContext
         .HasMany(e => e.Reports)
         .WithOne(r => r.Exam)
         .HasForeignKey(r => r.ExamId); 
-
+/*
     modelBuilder.Entity<Choice>()
         .HasOne(c => c.Question)
         .WithMany(q => q.Choices)
         .HasForeignKey(c => new{ c.QuestionId, c.ExamId})
         .OnDelete(DeleteBehavior.NoAction);
+*/
 
     modelBuilder.Entity<Exam>()
         .HasMany(e => e.Questions)
         .WithOne(q => q.Exam)
         .HasForeignKey(q => q.ExamId);
-
+/*
     modelBuilder.Entity<Exam>()
         .HasMany(e => e.Choices)
         .WithOne(c => c.Exam)
         .HasForeignKey(c => c.ExamId); 
+        */
 }
 
 

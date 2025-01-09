@@ -1,7 +1,8 @@
-﻿namespace Backend.Data.Models;
+namespace Backend.DTO;
 
-public class Question
+public class QuestionDTO
 {
+    public string ExamId { get; set; }
     public string QuestionId { get; set; }
     public string QuestionText { get; set; }
     public string Choice_A {get; set;}
@@ -9,10 +10,4 @@ public class Question
     public string Choice_C {get; set;}
     public string Choice_D {get; set;}
     public string Answer { get; set; }
-    
-    
-    //Navigation Property
-    public string ExamId { get; set; }
-    public Exam Exam { get; set; }
-    
 }
