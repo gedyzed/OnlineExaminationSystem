@@ -80,7 +80,7 @@ public class TeacherController : ControllerBase
     public IActionResult AddExam([FromBody]ExamDTO exam, string teacherId)
     {
         _teacherApi.AddExam(exam);
-        _teacherApi.InsertToTeacher(exam.ExamID, teacherId);
+        _teacherApi.EditTeacherExam(exam.ExamID, teacherId);
         return Ok(new { message = "Exam added successfully!" });
     }
     [HttpGet("exams/all-exams")]

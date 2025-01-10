@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddTransient<TeacherApi>();
+builder.Services.AddTransient<RegisterApi>();
 // Add DbContext
 builder.Services.AddDbContext<ExamDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));

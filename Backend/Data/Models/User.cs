@@ -9,7 +9,7 @@ public class User
     public string Password { get; set; }
     public string Role { get; set; }
     public string Gender { get; set; }
-    public string phoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
     
     //Navigation Property
     public Student Student { get; set; }

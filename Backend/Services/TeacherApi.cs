@@ -127,16 +127,18 @@ public class TeacherApi
         return exams;
     }
 
-    public void InsertToTeacher(string examid, string teacherid)
+    public void EditTeacherExam(string examId, string teacherId)
     {
-        var teacher = new Teacher()
+        var teacher = _context.Teachers.FirstOrDefault(t => t.TeacherId == teacherId);
+        
+        if (teacher == null)
         {
-            ExamId = examid,
-            TeacherId = teacherid
-        };
-        _context.Teachers.Add(teacher);
+            throw new Exception("Teacher not found.");
+        }
+        teacher.ExamId = examId;
         _context.SaveChanges();
     }
+
     
     //view student Results 
     public List<Report> ViewReports()

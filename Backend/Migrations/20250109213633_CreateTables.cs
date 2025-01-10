@@ -110,7 +110,7 @@ namespace Backend.Migrations
                 columns: table => new
                 {
                     TeacherId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ExamId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ExamId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
