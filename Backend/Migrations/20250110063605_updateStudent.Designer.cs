@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20250109175146_modifyExamTable")]
-    partial class modifyExamTable
+    [Migration("20250110063605_updateStudent")]
+    partial class updateStudent
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,24 +27,14 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Data.Models.Admin", b =>
                 {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"));
+                    b.Property<string>("AdminId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Department")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("AdminId");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
 
                     b.ToTable("Admins");
                 });
@@ -142,8 +132,8 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Data.Models.Schedule", b =>
                 {
-                    b.Property<int>("AdminId")
-                        .HasColumnType("int");
+                    b.Property<string>("AdminId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ExamId")
                         .HasColumnType("nvarchar(450)");
@@ -158,6 +148,9 @@ namespace Backend.Migrations
                         .HasColumnType("time");
 
                     b.HasKey("AdminId", "ExamId");
+
+                    b.HasIndex("ExamId")
+                        .IsUnique();
 
                     b.ToTable("Schedules");
                 });
@@ -174,14 +167,11 @@ namespace Backend.Migrations
                     b.Property<DateOnly>("Enrollment")
                         .HasColumnType("date");
 
-                    b.Property<string>("UserID")
+                    b.Property<string>("Semester")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentId");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
 
                     b.ToTable("Students");
                 });
@@ -195,14 +185,7 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("TeacherId");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
 
                     b.ToTable("Teachers");
                 });
@@ -249,7 +232,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Data.Models.User", "User")
                         .WithOne("Admin")
-                        .HasForeignKey("Backend.Data.Models.Admin", "UserID")
+                        .HasForeignKey("Backend.Data.Models.Admin", "AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -294,14 +277,22 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Backend.Data.Models.Exam", "Exam")
+                        .WithOne("Schedule")
+                        .HasForeignKey("Backend.Data.Models.Schedule", "ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Admin");
+
+                    b.Navigation("Exam");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Student", b =>
                 {
                     b.HasOne("Backend.Data.Models.User", "User")
                         .WithOne("Student")
-                        .HasForeignKey("Backend.Data.Models.Student", "UserID")
+                        .HasForeignKey("Backend.Data.Models.Student", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -312,7 +303,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Data.Models.User", "User")
                         .WithOne("Teacher")
-                        .HasForeignKey("Backend.Data.Models.Teacher", "UserID")
+                        .HasForeignKey("Backend.Data.Models.Teacher", "TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -329,6 +320,9 @@ namespace Backend.Migrations
                     b.Navigation("Questions");
 
                     b.Navigation("Reports");
+
+                    b.Navigation("Schedule")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Student", b =>

@@ -76,10 +76,11 @@ public class TeacherController : ControllerBase
         return Ok(new { message = "Question deleted successfully!" });
     }
 
-    [HttpPost("AddExam")]
-    public IActionResult AddExam([FromBody]ExamDTO exam)
+    [HttpPost("AddExam/{teacherId}")]
+    public IActionResult AddExam([FromBody]ExamDTO exam, string teacherId)
     {
         _teacherApi.AddExam(exam);
+        _teacherApi.EditTeacherExam(exam.ExamID, teacherId);
         return Ok(new { message = "Exam added successfully!" });
     }
     [HttpGet("exams/all-exams")]
@@ -118,4 +119,44 @@ public class TeacherController : ControllerBase
         }
     }
 
+    [HttpGet("view-Report")]
+    public IActionResult GetViewReport()
+    {
+        try
+        {
+            var reports = _teacherApi.ViewReports();
+
+            if (reports == null || !reports.Any())
+            {
+                return NotFound(new { message = "No reports available." });
+            }
+
+            return Ok(reports);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while fetching reports.", error = ex.Message });
+        }
+    }
+
+    [HttpGet("GetExamsByTeacher/{teacherId}")]
+    public IActionResult GetExamsByTeacher(string teacherId)
+    {
+        try
+        {
+            var exams = _teacherApi.GetExamsByTeacher(teacherId);
+
+            if (exams == null || !exams.Any())
+            {
+                return NotFound(new { Message = $"No exams found for Teacher ID: {teacherId}" });
+            }
+
+            return Ok(exams);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "An error occurred while retrieving exams.", Details = ex.Message });
+        }
+    }
+    
 }

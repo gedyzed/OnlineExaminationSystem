@@ -14,5 +14,4 @@ public class AdminController : ControllerBase
         _adminApi = adminApi;
     }
     
-    
 }

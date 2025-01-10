@@ -19,7 +19,17 @@ builder.Services.AddSwaggerGen(options =>
         Description = "This is an API for an online examination system."
     });
 });
+
+builder.Services.AddDistributedMemoryCache(); // Required for session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true; // Make the session cookie accessible only via HTTP
+    options.Cookie.IsEssential = true; // Ensure cookie is sent even if user doesn't consent
+});
+
 builder.Services.AddTransient<TeacherApi>();
+builder.Services.AddTransient<RegisterApi>();
 // Add DbContext
 builder.Services.AddDbContext<ExamDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
@@ -41,5 +51,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseSession();
 app.Run();

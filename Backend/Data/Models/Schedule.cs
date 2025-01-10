@@ -8,6 +8,7 @@ public class Schedule
     public TimeOnly EndTime { get; set; }
     
     //Navigation Property
-    public int AdminId { get; set; }
+    public String AdminId { get; set; }
     public Admin Admin { get; set; }
+    public Exam Exam { get; set; }
 }

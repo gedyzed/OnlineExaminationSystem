@@ -109,7 +109,40 @@ public class TeacherApi
         return existingExam;
     }
 
+    public List<Exam> GetExamsByTeacher(string teacherId)
+    {
+        var exams = (from teacher in _context.Teachers
+            join exam in _context.Exams
+                on teacher.ExamId equals exam.ExamID
+            where teacher.TeacherId == teacherId
+            select new Exam
+            {
+                ExamID = exam.ExamID,
+                Title = exam.Title,
+                Departement = exam.Departement,
+                Course = exam.Course,
+                Status = exam.Status
+            }).ToList();
 
+        return exams;
+    }
+
+    public void EditTeacherExam(string examId, string teacherId)
+    {
+        var teacher = _context.Teachers.FirstOrDefault(t => t.TeacherId == teacherId);
+        
+        if (teacher == null)
+        {
+            throw new Exception("Teacher not found.");
+        }
+        teacher.ExamId = examId;
+        _context.SaveChanges();
+    }
 
     
+    //view student Results 
+    public List<Report> ViewReports()
+    {
+        return _context.Reports.ToList();
+    }
 }
