@@ -54,6 +54,7 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Online_Examination_System v1");
     });
 }
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
