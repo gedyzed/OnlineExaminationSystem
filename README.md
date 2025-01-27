@@ -1,6 +1,5 @@
 Here is the updated README.md content with a detailed description:
-
-```markdown
+```
 # Online Examination System
 
 ## Overview
