@@ -1,5 +1,3 @@
-Here is the updated README.md content with a detailed description:
-```
 # Online Examination System
 
 ## Overview
@@ -20,8 +18,13 @@ The Online Examination System aims to streamline the examination process by prov
 
 ## Technologies Used
 - **Backend**: C# with ASP.NET Core
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: React.Js
 - **Database**: Microsoft SQL Server
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gedyzed/OnlineExaminationSystem.git
 
 ## Installation
 1. Clone the repository:
